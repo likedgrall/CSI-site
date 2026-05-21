@@ -47,6 +47,9 @@
     .logo {
         z-index: 31;
     }
+    .logo__mark {
+        width: 190px;
+    }
 
     .menu-toggle {
         display: block;
@@ -153,8 +156,88 @@
     }
 
     .footer__inner {
-        justify-content: center;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+    }
+
+    .footer a,
+    .footer__copy,
+    .footer__tagline {
+        justify-self: center;
+    }
+
+    .footer__copy {
         text-align: center;
     }
     
+}
+
+@media (max-width: 400px) {
+    .modal {
+        padding: 8px;
+    }
+
+    .modal__dialog {
+        max-height: calc(100dvh - 16px);
+    }
+
+    .form {
+        padding: 16px;
+    }
+
+    .form__title {
+        font-size: 21px;
+    }
+
+    .form__text {
+        margin-bottom: 12px;
+        font-size: 13px;
+    }
+
+    .form__grid {
+        gap: 10px;
+    }
+
+    .field label {
+        font-size: 13px;
+    }
+
+    .field input,
+    .field textarea {
+        padding: 10px 11px;
+        font-size: 14px;
+    }
+
+    .field textarea {
+        min-height: 72px;
+        max-height: 96px;
+    }
+
+    .file-upload {
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .file-upload__top {
+        gap: 8px;
+    }
+
+    .file-upload__button {
+        text-align: center;
+    }
+
+    .file-upload__name {
+        white-space: nowrap;
+    }
+
+    .checkbox {
+        gap: 8px;
+        font-size: 11px;
+    }
+
+    .form__hint,
+    .field__note {
+        font-size: 11px;
+    }
 }

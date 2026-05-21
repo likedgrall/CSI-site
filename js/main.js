@@ -4,11 +4,23 @@ const openButtons = document.querySelectorAll("[data-open-request]");
 const closeButtons = document.querySelectorAll("[data-close-request]");
 const phoneInputs = document.querySelectorAll('input[type="tel"]');
 const fileInputs = document.querySelectorAll('input[type="file"]');
+const fileClearButtons = document.querySelectorAll(".file-upload__clear");
 const nav = document.querySelector(".nav");
 const menuToggle = document.querySelector(".menu-toggle");
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzhksRp0PeteXBvEX-6Tp_9nljkvmZ5es1zmMyF4QC2yxtUrXjxohj2RRUZpqpxwOXyPw/exec";
-const FORM_STUB_MODE = true;
+const FORM_STUB_MODE = false;
 const MAX_FILE_SIZE = 8 * 1024 * 1024;
+const MAX_FILE_NAME_LENGTH = 38;
+const ALLOWED_FILE_EXTENSIONS = ["pdf", "doc", "docx", "xls", "xlsx", "jpg", "jpeg", "png"];
+const ALLOWED_FILE_TYPES = [
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    "application/vnd.ms-excel",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    "image/jpeg",
+    "image/png",
+];
 
 const openModal = () => {
     if (!modal) {
@@ -230,6 +242,7 @@ const resetFileUpload = (input) => {
 
     if (name) {
         name.textContent = "Файл не выбран";
+        name.removeAttribute("title");
     }
 };
 
@@ -251,17 +264,80 @@ const updateFileUpload = (input) => {
     }
 
     if (name) {
-        name.textContent = file.name;
+        name.textContent = shortenFileName(file.name);
+        name.title = file.name;
     }
+};
+
+const shortenFileName = (fileName) => {
+    if (fileName.length <= MAX_FILE_NAME_LENGTH) {
+        return fileName;
+    }
+
+    const extensionIndex = fileName.lastIndexOf(".");
+    const extension = extensionIndex > -1 ? fileName.slice(extensionIndex) : "";
+    const baseName = extensionIndex > -1 ? fileName.slice(0, extensionIndex) : fileName;
+    const availableLength = MAX_FILE_NAME_LENGTH - extension.length - 3;
+
+    if (availableLength <= 0) {
+        return `${fileName.slice(0, MAX_FILE_NAME_LENGTH - 3)}...`;
+    }
+
+    return `${baseName.slice(0, availableLength)}...${extension}`;
 };
 
 fileInputs.forEach((input) => {
     input.addEventListener("change", () => {
+        const file = input.files?.[0];
+        const form = input.closest(".js-request-form");
+
+        if (file && file.size > MAX_FILE_SIZE) {
+            input.value = "";
+            resetFileUpload(input);
+            setFormStatus(form, "Файл слишком большой. Прикрепите файл до 8 МБ.", "error");
+            return;
+        }
+
+        if (file && !isAllowedFile(file)) {
+            input.value = "";
+            resetFileUpload(input);
+            setFormStatus(form, "Недопустимый формат файла. Разрешены PDF, DOC, DOCX, XLS, XLSX, JPG и PNG.", "error");
+            return;
+        }
+
+        if (form) {
+            setFormStatus(form, "");
+        }
+
         updateFileUpload(input);
     });
 });
 
+fileClearButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const upload = button.closest(".file-upload");
+        const input = upload?.querySelector('input[type="file"]');
+        const form = button.closest(".js-request-form");
+
+        if (input) {
+            input.value = "";
+            resetFileUpload(input);
+        }
+
+        if (form) {
+            setFormStatus(form, "");
+        }
+    });
+});
+
 const setFormStatus = (form, message, type = "success") => {
+    if (!form) {
+        return;
+    }
+
     const statusMessage = form.querySelector(".form__status");
 
     if (!statusMessage) {
@@ -294,6 +370,19 @@ const readFileAsBase64 = (file) => new Promise((resolve, reject) => {
     reader.readAsDataURL(file);
 });
 
+const getFileExtension = (fileName) => {
+    const parts = fileName.toLowerCase().split(".");
+    return parts.length > 1 ? parts.pop() : "";
+};
+
+const isAllowedFile = (file) => {
+    const extension = getFileExtension(file.name);
+    const hasAllowedExtension = ALLOWED_FILE_EXTENSIONS.includes(extension);
+    const hasAllowedType = !file.type || ALLOWED_FILE_TYPES.includes(file.type);
+
+    return hasAllowedExtension && hasAllowedType;
+};
+
 requestForms.forEach((form) => {
     form.addEventListener("submit", async (event) => {
         event.preventDefault();
@@ -310,7 +399,22 @@ requestForms.forEach((form) => {
         }
 
         if (file && file.size > MAX_FILE_SIZE) {
+            if (fileInput) {
+                fileInput.value = "";
+                resetFileUpload(fileInput);
+            }
+
             setFormStatus(form, "Файл слишком большой. Прикрепите файл до 8 МБ.", "error");
+            return;
+        }
+
+        if (file && !isAllowedFile(file)) {
+            if (fileInput) {
+                fileInput.value = "";
+                resetFileUpload(fileInput);
+            }
+
+            setFormStatus(form, "Недопустимый формат файла. Разрешены PDF, DOC, DOCX, XLS, XLSX, JPG и PNG.", "error");
             return;
         }
 

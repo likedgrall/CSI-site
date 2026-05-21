@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Центр Поддержки Импорта — поставка промышленного и инжинирингового оборудования</title>
+  <title>Центр Поддержки промышленности — поставка промышленного оборудования</title>
   <meta name="description" content="Комплексная поставка промышленного и инжинирингового оборудования под заказ: ВЭД, валютные расчёты, международная логистика, таможня, сертификация и доставка по России." />
     <link rel="icon" type="image/svg+xml" href="./image/logoSite.svg">
     <link rel="stylesheet" href="./css/style.css">
@@ -13,7 +13,7 @@
 <body>
   <header class="header">
     <div class="container header__inner">
-      <a class="logo" href="#top" aria-label="Центр Поддержки Импорта">
+      <a class="logo" href="#top" aria-label="Центр Поддержки промышленности">
         <img class="logo__mark" src="./image/logo.png" alt="" aria-hidden="true" />
       </a>
 
@@ -81,7 +81,7 @@
         <div class="service">
           <div class="service__text">
             <p class="section__lead service__lead">
-              Центр Поддержки Импорта (ЦПИ) обеспечивает комплексное сопровождение поставок промышленного оборудования для российских предприятий по принципу «единого окна».
+              Центр Поддержки промышленности (ЦПП) обеспечивает комплексное сопровождение поставок промышленного оборудования для российских предприятий по принципу «единого окна».
             </p>
 
             <div class="service__block">
@@ -95,7 +95,7 @@
               </ul>
 
               <p class="service__summary">
-                ЦПИ закрывает организационные этапы поставки, чтобы заказчик работал с одним ответственным центром, а не с несколькими подрядчиками отдельно.
+                ЦПП закрывает организационные этапы поставки, чтобы заказчик работал с одним ответственным центром, а не с несколькими подрядчиками отдельно.
               </p>
             </div>
 
@@ -137,7 +137,7 @@
           <article class="benefit">
             <span class="benefit__number">02</span>
             <h3>Сопровождение ВЭД</h3>
-            <p>ЦПИ закрывает валютные расчёты, оплату иностранному контрагенту и взаимодействие по поставке.</p>
+            <p>ЦПП закрывает валютные расчёты, оплату иностранному контрагенту и взаимодействие по поставке.</p>
           </article>
 
           <article class="benefit">
@@ -182,7 +182,7 @@
                 <div class="step__number">2</div>
                 <div>
                   <div class="step__title">Технический специалист уточняет данные</div>
-                  <div class="step__text">Сотрудники ЦПИ собирают информацию по оборудованию и отправляют технико-коммерческое предложение.</div>
+                  <div class="step__text">Сотрудники ЦПП собирают информацию по оборудованию и отправляют технико-коммерческое предложение.</div>
                 </div>
               </div>
 
@@ -242,7 +242,7 @@
 
         <form class="form js-request-form" action="#" method="post">
           <div class="form__title">Оставить заявку</div>
-          <p class="form__text">Заполните форму, и специалист ЦПИ свяжется с вами для уточнения деталей.</p>
+          <p class="form__text">Заполните форму, и специалист ЦПП свяжется с вами для уточнения деталей.</p>
 
           <div class="form__grid">
             <div class="field">
@@ -268,11 +268,16 @@
             <div class="field file-field">
               <label for="section-attachment">Прикрепить файл (можно добавить не более 1)</label>
               <label class="file-upload" for="section-attachment">
-                <input id="section-attachment" name="attachment" type="file" />
-                <span class="file-upload__button">Выбрать файл</span>
+                <input id="section-attachment" name="attachment" type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png" />
+                <span class="file-upload__top">
+                  <span class="file-upload__button">Выбрать файл</span>
+                  <button class="file-upload__clear" type="button" aria-label="Удалить файл">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                  </button>
+                </span>
                 <span class="file-upload__name">Файл не выбран</span>
               </label>
-              <span class="field__note">Можно приложить спецификацию, перечень оборудования или ТЗ. До 8 МБ.</span>
+              <span class="field__note">Разрешены PDF, DOC, DOCX, XLS, XLSX, JPG, PNG. До 8 МБ.</span>
             </div>
 
             <div class="field field--hidden" aria-hidden="true">
@@ -301,7 +306,10 @@
 
   <footer class="footer">
     <div class="container footer__inner">
-      <span>© 2026 Центр Поддержки Импорта</span>
+      <div class="footer__copy">
+        <span>© 2026 Центр Поддержки промышленности</span>
+        <span class="footer__tagline">Комплексная поставка промышленного оборудования под заказ</span>
+      </div>
       <a href="./privacy-policy.html">Политика конфиденциальности данных</a>
     </div>
   </footer>
@@ -312,7 +320,7 @@
       <button class="modal__close" type="button" aria-label="Закрыть форму" data-close-request>×</button>
       <form class="form js-request-form" action="#" method="post" id="request-form">
         <div class="form__title" id="request-modal-title">Оставить заявку</div>
-        <p class="form__text">Заполните форму, и специалист ЦПИ свяжется с вами для уточнения деталей.</p>
+        <p class="form__text">Заполните форму, и специалист ЦПП свяжется с вами для уточнения деталей.</p>
 
         <div class="form__grid">
           <div class="field">
@@ -338,11 +346,16 @@
           <div class="field file-field">
             <label for="attachment">Прикрепить файл (можно добавить не более 1)</label>
             <label class="file-upload" for="attachment">
-              <input id="attachment" name="attachment" type="file" />
-              <span class="file-upload__button">Выбрать файл</span>
+              <input id="attachment" name="attachment" type="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png" />
+              <span class="file-upload__top">
+                <span class="file-upload__button">Выбрать файл</span>
+                <button class="file-upload__clear" type="button" aria-label="Удалить файл">
+                  <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+              </span>
               <span class="file-upload__name">Файл не выбран</span>
             </label>
-            <span class="field__note">Можно приложить спецификацию, перечень оборудования или ТЗ. До 8 МБ.</span>
+            <span class="field__note">Разрешены PDF, DOC, DOCX, XLS, XLSX, JPG, PNG. До 8 МБ.</span>
           </div>
 
           <div class="field field--hidden" aria-hidden="true">
